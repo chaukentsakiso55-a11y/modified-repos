@@ -1,0 +1,9 @@
+{
+  "name": "PowerToys",
+  "upstream": "https://github.com/microsoft/PowerToys",
+  "upstream_branch": "main",
+  "upstream_commit": "19b006913f0f9810d54b5c6a78bb654ce3dbfe84",
+  "workspace": "EMBER",
+  "editable": true,
+  "preserve_upstream_license": true
+}
