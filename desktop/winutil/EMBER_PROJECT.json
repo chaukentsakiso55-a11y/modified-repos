@@ -1,0 +1,9 @@
+{
+  "name": "winutil",
+  "upstream": "https://github.com/ChrisTitusTech/winutil",
+  "upstream_branch": "main",
+  "upstream_commit": "9c87c02fdb9e057f41dd3aea051af4df6f41cf5f",
+  "workspace": "EMBER",
+  "editable": true,
+  "preserve_upstream_license": true
+}
