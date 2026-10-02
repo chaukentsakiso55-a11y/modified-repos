@@ -1,0 +1,9 @@
+{
+  "name": "ollama",
+  "upstream": "https://github.com/ollama/ollama",
+  "upstream_branch": "main",
+  "upstream_commit": "b0c1ca4f7549d7acdfa52a7dcffc934bc63a43ce",
+  "workspace": "EMBER",
+  "editable": true,
+  "preserve_upstream_license": true
+}
