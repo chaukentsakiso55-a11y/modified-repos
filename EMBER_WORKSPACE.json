@@ -1,0 +1,57 @@
+{
+  "workspace": "EMBER Desktop Mods",
+  "repository": "chaukentsakiso55-a11y/modified-repos",
+  "layout": "desktop/<project>",
+  "projects": [
+    {
+      "name": "ollama",
+      "upstream": "https://github.com/ollama/ollama",
+      "branch": "main"
+    },
+    {
+      "name": "open-webui",
+      "upstream": "https://github.com/open-webui/open-webui",
+      "branch": "main"
+    },
+    {
+      "name": "jan",
+      "upstream": "https://github.com/janhq/jan",
+      "branch": "main"
+    },
+    {
+      "name": "ComfyUI",
+      "upstream": "https://github.com/Comfy-Org/ComfyUI",
+      "branch": "master"
+    },
+    {
+      "name": "anything-llm",
+      "upstream": "https://github.com/Mintplex-Labs/anything-llm",
+      "branch": "master"
+    },
+    {
+      "name": "CyberChef",
+      "upstream": "https://github.com/gchq/CyberChef",
+      "branch": "master"
+    },
+    {
+      "name": "portmaster",
+      "upstream": "https://github.com/safing/portmaster",
+      "branch": "development"
+    },
+    {
+      "name": "PowerToys",
+      "upstream": "https://github.com/microsoft/PowerToys",
+      "branch": "main"
+    },
+    {
+      "name": "Flow.Launcher",
+      "upstream": "https://github.com/Flow-Launcher/Flow.Launcher",
+      "branch": "dev"
+    },
+    {
+      "name": "winutil",
+      "upstream": "https://github.com/ChrisTitusTech/winutil",
+      "branch": "main"
+    }
+  ]
+}
