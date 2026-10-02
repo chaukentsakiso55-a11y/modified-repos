@@ -44,17 +44,16 @@ jobs:
             mkdir -p "desktop/$dest"
             rsync -a --exclude=".git" "$temp/" "desktop/$dest/"
 
-            cat > "desktop/$dest/EMBER_PROJECT.json" <<EOF
-{
-  "name": "$dest",
-  "upstream": "https://github.com/$slug",
-  "upstream_branch": "$branch",
-  "upstream_commit": "$upstream_commit",
-  "workspace": "EMBER",
-  "editable": true,
-  "preserve_upstream_license": true
-}
-EOF
+            printf '%s\n' \
+              '{' \
+              "  \"name\": \"$dest\"," \
+              "  \"upstream\": \"https://github.com/$slug\"," \
+              "  \"upstream_branch\": \"$branch\"," \
+              "  \"upstream_commit\": \"$upstream_commit\"," \
+              '  "workspace": "EMBER",' \
+              '  "editable": true,' \
+              '  "preserve_upstream_license": true' \
+              '}' > "desktop/$dest/EMBER_PROJECT.json"
 
             rm -rf "$temp"
             git add "desktop/$dest"
