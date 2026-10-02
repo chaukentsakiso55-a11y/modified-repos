@@ -1,6 +1,11 @@
 name: Import desktop source snapshots
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/import-desktop.yml
   workflow_dispatch:
 
 permissions:
@@ -8,6 +13,7 @@ permissions:
 
 jobs:
   import:
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
