@@ -1,0 +1,9 @@
+{
+  "name": "anything-llm",
+  "upstream": "https://github.com/Mintplex-Labs/anything-llm",
+  "upstream_branch": "master",
+  "upstream_commit": "fa7ec877f005a21ede94888b3b8618b700343857",
+  "workspace": "EMBER",
+  "editable": true,
+  "preserve_upstream_license": true
+}
