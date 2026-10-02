@@ -1,0 +1,9 @@
+{
+  "name": "open-webui",
+  "upstream": "https://github.com/open-webui/open-webui",
+  "upstream_branch": "main",
+  "upstream_commit": "8bd8b4fac5e059578ac0c74b3c18d11139f88b7d",
+  "workspace": "EMBER",
+  "editable": true,
+  "preserve_upstream_license": true
+}
