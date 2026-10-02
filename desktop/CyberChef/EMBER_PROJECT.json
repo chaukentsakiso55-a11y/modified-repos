@@ -1,0 +1,9 @@
+{
+  "name": "CyberChef",
+  "upstream": "https://github.com/gchq/CyberChef",
+  "upstream_branch": "master",
+  "upstream_commit": "abad06cba0f3cf1840ed0cc08fa2ffb74e219a2b",
+  "workspace": "EMBER",
+  "editable": true,
+  "preserve_upstream_license": true
+}
