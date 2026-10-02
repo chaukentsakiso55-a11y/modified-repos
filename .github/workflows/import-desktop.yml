@@ -1,11 +1,6 @@
 name: Import desktop source snapshots
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - .github/import-now
   workflow_dispatch:
 
 permissions:
