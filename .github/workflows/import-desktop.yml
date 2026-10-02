@@ -1,0 +1,75 @@
+name: Import desktop source snapshots
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/import-now
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Import editable source snapshots
+        shell: bash
+        env:
+          GIT_LFS_SKIP_SMUDGE: "1"
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          mkdir -p desktop
+
+          import_repo() {
+            slug="$1"
+            dest="$2"
+            branch="$3"
+            temp=".import-$dest"
+
+            rm -rf "$temp"
+            git clone --depth 1 --single-branch --branch "$branch" "https://github.com/$slug.git" "$temp"
+            upstream_commit="$(git -C "$temp" rev-parse HEAD)"
+
+            rm -rf "desktop/$dest"
+            mkdir -p "desktop/$dest"
+            rsync -a --exclude=".git" "$temp/" "desktop/$dest/"
+
+            cat > "desktop/$dest/EMBER_PROJECT.json" <<EOF
+{
+  "name": "$dest",
+  "upstream": "https://github.com/$slug",
+  "upstream_branch": "$branch",
+  "upstream_commit": "$upstream_commit",
+  "workspace": "EMBER",
+  "editable": true,
+  "preserve_upstream_license": true
+}
+EOF
+
+            rm -rf "$temp"
+            git add "desktop/$dest"
+            if ! git diff --cached --quiet; then
+              git commit -m "Import $slug for EMBER modification"
+              git push origin HEAD:main
+            fi
+          }
+
+          import_repo "ollama/ollama" "ollama" "main"
+          import_repo "open-webui/open-webui" "open-webui" "main"
+          import_repo "janhq/jan" "jan" "main"
+          import_repo "Comfy-Org/ComfyUI" "ComfyUI" "master"
+          import_repo "Mintplex-Labs/anything-llm" "anything-llm" "master"
+          import_repo "gchq/CyberChef" "CyberChef" "master"
+          import_repo "safing/portmaster" "portmaster" "development"
+          import_repo "microsoft/PowerToys" "PowerToys" "main"
+          import_repo "Flow-Launcher/Flow.Launcher" "Flow.Launcher" "dev"
+          import_repo "ChrisTitusTech/winutil" "winutil" "main"
