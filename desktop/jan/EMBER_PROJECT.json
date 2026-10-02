@@ -1,0 +1,9 @@
+{
+  "name": "jan",
+  "upstream": "https://github.com/janhq/jan",
+  "upstream_branch": "main",
+  "upstream_commit": "14a720628f9592c8e60f7e081ef733076db8a6a9",
+  "workspace": "EMBER",
+  "editable": true,
+  "preserve_upstream_license": true
+}
