@@ -1,0 +1,116 @@
+[package]
+name = "portmaster"
+version = "2.2.3"
+description = "Portmaster UI"
+authors = ["Safing"]
+license = ""
+repository = ""
+default-run = "portmaster"
+edition = "2021"
+rust-version = "1.64"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[build-dependencies]
+tauri-build = { version = "2.0.5", features = [] }
+
+[dependencies]
+# Tauri
+tauri = { version = "2.2.5", features = ["tray-icon", "image-png", "config-json5", "devtools"] }
+tauri-plugin-shell = "2.2.1"
+tauri-plugin-dialog = "2.2.0"
+tauri-plugin-clipboard-manager = "2.1.11"
+tauri-plugin-os = "2.2.0"
+tauri-plugin-single-instance = "2.2.1"
+tauri-plugin-notification = "2.2.1"
+tauri-plugin-log = "2.2.1"
+tauri-plugin-window-state = "2.2.1"
+tauri-plugin-websocket = "2"
+
+clap_lex = "0.7.2"
+
+# General
+serde_json = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+futures-util = { version = "0.3", features = ["sink"] }
+dirs = "1.0"
+rust-ini = "0.20.0"
+dataurl = "0.1.2"
+uuid = "1.6.1"
+lazy_static = "1.4.0"
+tokio = { version = "1.44.2", features = ["macros"] }
+cached = "0.46.1"
+notify-rust = "4.10.0"
+assert_matches = "1.5.0"
+bytes = "1.5"
+tokio-websockets = { version = "0.5.0", features = ["client", "ring", "rand"] }
+sha = "1.0.3"
+http = "1.0.0"
+url = "2.5.0"
+thiserror = "1.0"
+log = "0.4.21"
+reqwest = { version = "0.12", features = ["cookies", "json"] }
+
+rfd = { version = "*", default-features = false, features = [ "tokio", "gtk3", "common-controls-v6" ] }
+open = "5.1.3"
+chrono = { version = "0.4", features = ["serde"] }
+
+dark-light = "2.0.0"
+
+# Linux only
+[target.'cfg(target_os = "linux")'.dependencies]
+glib = "0.18.4"
+gtk-sys = "0.18.0"
+glib-sys = "0.18.1"
+gdk-pixbuf = "0.18.3"
+gdk-pixbuf-sys = "0.18.0"
+gio-sys = "0.18.1"
+
+# Windows only
+[target.'cfg(target_os = "windows")'.dependencies]
+windows-service = "0.6.0"
+windows = { version = "0.54.0", features = ["Win32_Foundation", "Win32_UI_Shell", "Win32_UI_WindowsAndMessaging"] }
+tauri-winrt-notification = "0.3.0"
+
+[dev-dependencies]
+which = "6.0.0"
+gtk = "0.18"
+ctor = "0.2.6"
+
+[features]
+# this feature is used for production builds or when `devPath` points to the filesystem and the built-in dev server is disabled.
+# If you use cargo directly instead of tauri's cli you can use this feature flag to switch between tauri's `dev` and `build` modes.
+# DO NOT REMOVE!!
+custom-protocol = [ "tauri/custom-protocol" ]
+
+[package.metadata.clippy]
+allow = ["clippy::collapsible_else_if"]
+
+# ---------------------------------------------------------------------------
+# Temporary tao patch: fix for random UI crashes on Windows
+#   https://github.com/safing/portmaster/issues/2185
+#   https://github.com/safing/portmaster/issues/2255
+# Patched tao 0.32.8: Rc -> Arc for the Windows event-loop runner refcount.
+# Full explanation: https://github.com/safing/portmaster-tauri-tao-patch and
+# src/windows_tao_patch.rs (which also guards against this patch being dropped).
+#
+# Everything belonging to the patch is in this block. To remove the patch:
+# delete this block, delete src/windows_tao_patch.rs and its two references in
+# src/main.rs, run `cargo check`. Remove once one of these ships in a release:
+#   https://github.com/tauri-apps/tauri/pull/15411
+#   https://github.com/tauri-apps/tao/pull/1334
+# ---------------------------------------------------------------------------
+
+# 1. Direct dependency (Windows only) whose sole purpose is to reach the patched
+#    tao for the compile-time guard in src/windows_tao_patch.rs.
+[target.'cfg(target_os = "windows")'.dependencies.tauri-runtime-wry]
+version = "2"
+
+# 2. The patched tao itself, pinned to one commit of the fork. A [patch] is
+#    global by Cargo design (one dependency graph for all platforms); Linux and
+#    macOS compile unchanged upstream code from the fork, only fetched from
+#    GitHub instead of crates.io.
+[patch.crates-io]
+tao = { git = "https://github.com/safing/portmaster-tauri-tao-patch", rev = "205d3b80f50e577d575e2f79a9d318941cecb254" } # tag tao-v0.32.8-portmaster.1
+#tao = { path = "../../../../portmaster-tauri-tao-patch" }
+# ------------------------------- end of tao patch --------------------------

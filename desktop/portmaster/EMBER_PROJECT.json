@@ -1,0 +1,9 @@
+{
+  "name": "portmaster",
+  "upstream": "https://github.com/safing/portmaster",
+  "upstream_branch": "development",
+  "upstream_commit": "13a86a43cc6cee592395fcddc8387178f290f144",
+  "workspace": "EMBER",
+  "editable": true,
+  "preserve_upstream_license": true
+}

@@ -1,0 +1,22 @@
+# This workflow responds with a message when certain labels are added to an issue or PR.
+# Docs: https://github.com/dessant/label-actions
+name: Label Actions
+
+# This workflow is triggered when a label is added to an issue.
+on:
+  issues:
+    types: labeled
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  action:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: dessant/label-actions@65225c179d3b2502f6eda7b3d15101a3f412366b # v5.0.3
+        with:
+          github-token: ${{ github.token }}
+          config-path: ".github/label-actions.yml"
+          process-only: "issues"

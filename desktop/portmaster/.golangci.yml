@@ -1,0 +1,78 @@
+version: "2"
+linters:
+  default: all
+  disable:
+    - containedctx
+    - contextcheck
+    - cyclop
+    - depguard
+    - exhaustruct
+    - forbidigo
+    - funlen
+    - gochecknoglobals
+    - gochecknoinits
+    - gocognit
+    - gocyclo
+    - gomoddirectives
+    - interfacebloat
+    - ireturn
+    - lll
+    - mnd
+    - musttag
+    - nestif
+    - nilnil
+    - nlreturn
+    - noctx
+    - nolintlint
+    - nonamedreturns
+    - perfsprint
+    - revive
+    - tagliatelle
+    - testifylint
+    - testpackage
+    - varnamelen
+    - whitespace
+    - wrapcheck
+    - wsl
+    - wsl_v5
+  settings:
+    godox:
+      keywords:
+        - FIXME
+    gosec:
+      excludes:
+        - G204
+        - G304
+        - G505
+    revive:
+      enable-all-rules: true
+  exclusions:
+    generated: lax
+    rules:
+      - linters:
+          - golint
+        text: a blank import .*
+      - linters:
+          - staticcheck
+        text: 'ST1000: at least one file in a package should have a package comment.*'
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
+formatters:
+  enable:
+    - gofmt
+    - gofumpt
+    - goimports
+  settings:
+    goimports:
+      local-prefixes:
+        - github.com/safing
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
+
+
