@@ -1,0 +1,9 @@
+{
+  "name": "Flow.Launcher",
+  "upstream": "https://github.com/Flow-Launcher/Flow.Launcher",
+  "upstream_branch": "dev",
+  "upstream_commit": "5a7519a03327d0eef926d1d8703aa5dbfa88305a",
+  "workspace": "EMBER",
+  "editable": true,
+  "preserve_upstream_license": true
+}
